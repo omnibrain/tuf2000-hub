@@ -26,8 +26,8 @@ def text_strokes(s, h):
     return segs, (max(xs) - min(xs) if xs else 0), (min(xs) if xs else 0)
 
 TOP = [
-    ("J1", "ESP32", [("5V", "5V"), ("GND", "GND"), ("3V3", "3V3"), ("IO17", "TX"), ("IO16", "RX"),
-                     ("IO4", "DE"), ("IO27", "D1"), ("IO26", "D2")]),
+    ("J1", "ESP32", [("5V", "5V"), ("GND", "GND"), ("3V3", "3V3"), ("IO18", "TX"), ("IO19", "RX"),
+                     ("IO23", "DE"), ("IO17", "D1"), ("IO15", "D2")]),
     ("J2", "BOOST IN", [("IN+", "5V"), ("IN-", "GND")]),
     ("J3", "BOOST OUT", [("OUT+", "12V"), ("OUT-", "GND")]),
     ("J4", "METER PWR", [("12V", "12V"), ("GND", "GND")]),
@@ -36,8 +36,8 @@ BOT = [
     ("J5", "METER 485", [("A+", "A"), ("B-", "B")]),
     ("J6", "RS485 LOGIC", [("RO", "RX"), ("RE", "DE"), ("DE", "DE"), ("DI", "TX")]),
     ("J7", "RS485 PWR", [("VCC", "3V3"), ("B", "B"), ("A", "A"), ("GND", "GND")]),
-    ("J8", "TEMP 1", [("GND", "GND"), ("VCC", "3V3"), ("DATA", "D1")]),
-    ("J9", "TEMP 2", [("GND", "GND"), ("VCC", "3V3"), ("DATA", "D2")]),
+    ("J8", "TEMP OUTLET", [("GND", "GND"), ("VCC", "3V3"), ("DATA", "D1")]),
+    ("J9", "TEMP INLET", [("GND", "GND"), ("VCC", "3V3"), ("DATA", "D2")]),
 ]
 NAME_H, LABEL_H = 1.1, 0.9
 

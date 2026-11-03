@@ -8,6 +8,7 @@ a TUF-2000M ultrasonic flow meter over RS485, and two DS18B20 temperature sensor
 - `drc.py` — clearance, connectivity and netlist check: `python3 drc.py out/geometry.json`
 - `out/tuf2000-hub-gerbers.zip` — upload to the fab; `out/hub-BOM.csv` + `out/hub-CPL.csv` for assembly
 
-ESP32 pins: IO17 TX2 → DI, IO16 RX2 ← RO, IO4 → DE+RE, IO27 → temp 1, IO26 → temp 2.
+ESP32 pins (match the ESPHome `heating-temperature-sensor` config): IO18 TX → DI, IO19 RX ← RO,
+IO23 → DE+RE, IO17 → temp outlet (J8), IO15 → temp inlet (J9).
 
 Requires: `pip install shapely Hershey-Fonts gerbonara`

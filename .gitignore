@@ -3,3 +3,4 @@ render/
 prev_*.png
 render_*.png
 __pycache__/
+.venv/
