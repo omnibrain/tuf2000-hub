@@ -1,0 +1,5 @@
+render/
+*.svg
+prev_*.png
+render_*.png
+__pycache__/
