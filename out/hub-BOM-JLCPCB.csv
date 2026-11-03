@@ -1,0 +1,6 @@
+Comment,Designator,Footprint,LCSC Part #
+Pin header 1x8 2.54mm,J1,HDR-TH_8P-P2.54-V-M,C492407
+Pin header 1x2 2.54mm,"J2,J3,J4,J5",HDR-TH_2P-P2.54-V-M,C492401
+Pin header 1x4 2.54mm,"J6,J7",HDR-TH_4P-P2.54-V-M,C2691448
+Pin header 1x3 2.54mm,"J8,J9",HDR-TH_3P-P2.54-V-M,C2937625
+4.7k,"R1,R2",R0805,C17673

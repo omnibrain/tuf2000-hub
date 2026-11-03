@@ -6,7 +6,8 @@ a TUF-2000M ultrasonic flow meter over RS485, and two DS18B20 temperature sensor
 
 - `gen.py` — generates Gerbers, drill files, BOM and CPL into `out/`
 - `drc.py` — clearance, connectivity and netlist check: `python3 drc.py out/geometry.json`
-- `out/tuf2000-hub-gerbers.zip` — upload to the fab; `out/hub-BOM.csv` + `out/hub-CPL.csv` for assembly
+- `out/tuf2000-hub-gerbers.zip` — upload to the fab; `out/hub-BOM.csv` + `out/hub-CPL.csv` for PCBWay assembly,
+  `out/hub-BOM-JLCPCB.csv` + `out/hub-CPL-JLCPCB.csv` (LCSC part numbers) for JLCPCB
 
 ESP32 pins (match the ESPHome `heating-temperature-sensor` config): IO18 TX → DI, IO19 RX ← RO,
 IO23 → DE+RE, IO17 → temp outlet (J8), IO15 → temp inlet (J9).

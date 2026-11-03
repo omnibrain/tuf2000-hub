@@ -290,6 +290,24 @@ with open(os.path.join(OUT, "hub-CPL.csv"), "w", newline="") as f:
     for c in cpl:
         w.writerow([c["ref"], f"{c['x']:.3f}", f"{H - c['y']:.3f}", c["layer"], c["rot"]])
 
+# JLCPCB assembly: XFCN PZ254V-11 headers + UNI-ROYAL basic-library resistor
+LCSC_HDR = {2: "C492401", 3: "C2937625", 4: "C2691448", 8: "C492407"}
+with open(os.path.join(OUT, "hub-BOM-JLCPCB.csv"), "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #"])
+    for desc, cs in groups.items():
+        refs = ",".join(c["ref"] for c in cs)
+        n = cs[0]["n"]
+        if n:
+            w.writerow([f"Pin header 1x{n} 2.54mm", refs, f"HDR-TH_{n}P-P2.54-V-M", LCSC_HDR[n]])
+        else:
+            w.writerow(["4.7k", refs, "R0805", "C17673"])
+with open(os.path.join(OUT, "hub-CPL-JLCPCB.csv"), "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
+    for c in cpl:
+        w.writerow([c["ref"], f"{c['x']:.3f}mm", f"{H - c['y']:.3f}mm", c["layer"], c["rot"]])
+
 with zipfile.ZipFile(os.path.join(OUT, "tuf2000-hub-gerbers.zip"), "w") as z:
     for fn in sorted(os.listdir(OUT)):
         if fn.startswith("hub-") and not fn.endswith(".csv"):
