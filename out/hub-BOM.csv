@@ -2,5 +2,5 @@ Item,Designator,Qty,Description,Manufacturer,Mfr Part Number,Package,Type,Note
 1,J1,1,"Male pin header 1x8, 2.54mm, straight, gold",Wurth Elektronik,61300811121,THT 1x8 P2.54,THT,Equivalent generic header OK
 2,"J2,J3,J4,J5",4,"Male pin header 1x2, 2.54mm, straight, gold",Wurth Elektronik,61300211121,THT 1x2 P2.54,THT,Equivalent generic header OK
 3,"J6,J7",2,"Male pin header 1x4, 2.54mm, straight, gold",Wurth Elektronik,61300411121,THT 1x4 P2.54,THT,Equivalent generic header OK
-4,"J8,J9",2,"Male pin header 1x3, 2.54mm, straight, gold",Wurth Elektronik,61300311121,THT 1x3 P2.54,THT,Equivalent generic header OK
+4,"J8,J9",2,"Female socket header 1x3, 2.54mm, straight, gold",Wurth Elektronik,61300311821,THT 1x3 P2.54,THT,Equivalent generic header OK
 5,"R1,R2",2,Resistor 4.7k 1% 1/8W,Yageo,RC0805FR-074K7L,0805,SMD,Equivalent OK

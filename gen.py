@@ -40,6 +40,7 @@ BOT = [
     ("J9", "TEMP INLET", [("GND", "GND"), ("VCC", "3V3"), ("DATA", "D2")]),
 ]
 NAME_H, LABEL_H = 1.1, 0.9
+FEMALE = {"J8", "J9"}   # DS18B20 probes plug in directly
 
 def place_row(groups, start):
     """Place groups on a 2.54 grid, leaving room for each group name."""
@@ -110,7 +111,8 @@ for placed, row_y, band in ((top_placed, TOP_Y, -1), (bot_placed, BOT_Y, +1)):
         else:
             add_text(name, cx, H - 2.2, NAME_H)
         cpl.append(dict(ref=ref, x=cx, y=row_y, rot=0 if band < 0 else 180, layer="Top",
-                        desc=f"Pin header 1x{len(pins)} 2.54mm", n=len(pins), side=band))
+                        desc=f"{'Female' if ref in FEMALE else 'Pin'} header 1x{len(pins)} 2.54mm",
+                        n=len(pins), female=ref in FEMALE, side=band))
         # outline box around header
         x1, x2 = cols[0] - 1.4, cols[-1] + 1.4
         silk.append([(x1, row_y - 1.4), (x2, row_y - 1.4), (x2, row_y + 1.4), (x1, row_y + 1.4), (x1, row_y - 1.4)])
@@ -266,6 +268,7 @@ drill("hub-NPTH.drl", False)
 
 # ---------------- BOM + CPL ----------------
 WURTH = {2: "61300211121", 3: "61300311121", 4: "61300411121", 8: "61300811121"}
+WURTH_F = {3: "61300311821"}
 groups = {}
 for c in cpl:
     key = c["desc"]
@@ -278,8 +281,9 @@ with open(os.path.join(OUT, "hub-BOM.csv"), "w", newline="") as f:
         refs = ",".join(c["ref"] for c in cs)
         if cs[0]["n"]:
             n = cs[0]["n"]
-            w.writerow([i, refs, len(cs), f"Male pin header 1x{n}, 2.54mm, straight, gold",
-                        "Wurth Elektronik", WURTH[n], f"THT 1x{n} P2.54", "THT",
+            f = cs[0]["female"]
+            w.writerow([i, refs, len(cs), f"{'Female socket' if f else 'Male pin'} header 1x{n}, 2.54mm, straight, gold",
+                        "Wurth Elektronik", (WURTH_F if f else WURTH)[n], f"THT 1x{n} P2.54", "THT",
                         "Equivalent generic header OK"])
         else:
             w.writerow([i, refs, len(cs), "Resistor 4.7k 1% 1/8W", "Yageo", "RC0805FR-074K7L",
@@ -292,6 +296,7 @@ with open(os.path.join(OUT, "hub-CPL.csv"), "w", newline="") as f:
 
 # JLCPCB assembly: XFCN PZ254V-11 headers + UNI-ROYAL basic-library resistor
 LCSC_HDR = {2: "C492401", 3: "C2937625", 4: "C2691448", 8: "C492407"}
+LCSC_HDR_F = {3: "C146243"}   # BOOMELE 2.54-1*3PFemale
 with open(os.path.join(OUT, "hub-BOM-JLCPCB.csv"), "w", newline="") as f:
     w = csv.writer(f)
     w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #"])
@@ -299,7 +304,10 @@ with open(os.path.join(OUT, "hub-BOM-JLCPCB.csv"), "w", newline="") as f:
         refs = ",".join(c["ref"] for c in cs)
         n = cs[0]["n"]
         if n:
-            w.writerow([f"Pin header 1x{n} 2.54mm", refs, f"HDR-TH_{n}P-P2.54-V-M", LCSC_HDR[n]])
+            if cs[0]["female"]:
+                w.writerow([f"Female header 1x{n} 2.54mm", refs, f"HDR-TH_{n}P-P2.54-V-F", LCSC_HDR_F[n]])
+            else:
+                w.writerow([f"Pin header 1x{n} 2.54mm", refs, f"HDR-TH_{n}P-P2.54-V-M", LCSC_HDR[n]])
         else:
             w.writerow(["4.7k", refs, "R0805", "C17673"])
 with open(os.path.join(OUT, "hub-CPL-JLCPCB.csv"), "w", newline="") as f:
